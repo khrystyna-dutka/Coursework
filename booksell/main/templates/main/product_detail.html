@@ -1,0 +1,53 @@
+{% extends 'main/layout.html' %}
+{% load specifications %}
+{% block right %}
+<nav aria-label="breadcrumb" class="mt-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a class="bread_li_a-1" href="{% url 'catalog' %}">Каталог</a></li>
+        <li class="breadcrumb-item"><a class="bread_li_a-2" href="">{{ product.category.name }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
+    </ol>
+</nav>
+{% endblock %}
+{% block body %}
+<section>
+    <div class="detail_page">
+        <div class="detail">
+            <img class="detail_img" src="{{ product.image.url }}">
+            <div class="description">
+                <h3 class="detail_h3">{{ product.title }}</h3>
+                <p class="detail_author">Ціна: {{ product.price}} грн.</p>
+                <p class="detail_p"><span class="detail_span">Опис: </span>{{ product.description }}</p>
+                {{ product | product_spec}}
+                {% if request.user.is_authenticated %}
+                    <div class="text-left"><a class="btn btn-2 btn-outline-dark mt-auto" href="{% url 'add_to_cart' ct_model=ct_model slug=product.slug %}">У корзину</a></div>
+                {% elif not request.user.is_authenticated %}
+                    <button type="button" class="mt-auto btn-buy-2" data-toggle="modal" data-target="#myModal-2">
+                    У корзину
+                    </button>
+                    <div class="modal fade" id="myModal-2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="myModalLabel">Неавторизований користувач!</h5>
+                                    <button type="button" class="close btn_close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5>1. Вхід в особистий акаунт</h5>
+                                    <p>Перед тим як розпочати покупки, потрібно авторизуватися. Для цього на сторінці <a href="{% url 'catalog' %}" class="nav-bot_a1">Каталог</a> натистіть <a href="{% url 'login' %}" class="nav-bot_a1">Увійти</a>. Після успішного введення логіна та пароля, можете додавати товар у корзину.</p>
+                                    <br>
+                                    <h5>2. Реєстрація</h5>
+                                    <p>Якщо акаунт користувача у Вас не створений, натисніть <a href="{% url 'registration' %}" class="nav-bot_a2">Зареєструватися</a> на сторінці авторизації. Уведіть свої дані (важливо запам'ятати <b>логін</b> та <b>пароль</b> для подальшої авторизації на сайті) та натисніть кнопку для завершення реєстрації.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock body%}
+

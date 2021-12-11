@@ -1,0 +1,46 @@
+{% extends 'main/layout.html' %}
+{% load specifications %}
+{% block right %}
+    <p class="mt-3">Ваша корзина{% if not cart.products.count %}: пуста{%endif%}</p>
+{% endblock %}
+{% block body %}
+<section>
+    <table class="table mt-5">
+        <thead>
+            <tr>
+            <th scope="col">Назва</th>
+            <th scope="col">Зображення</th>
+            <th scope="col">Ціна</th>
+            <th scope="col">Кількість</th>
+            <th scope="col">Загальна ціна</th>
+            <th scope="col">Дія</th>
+            </tr>
+        </thead>
+
+        {% for item in cart.products.all %}
+        <tbody>
+            <tr>
+            <th scope="row">{{ item.content_object.title }}</th>
+            <td class="cart_products_td"><img src="{{ item.content_object.image.url }}" class="img-fluid"></td>
+            <td>{{ item.content_object.price }} грн</td>
+            <td>{{ item.qty }}</td>
+            <td>{{ item.final_price }} грн</td>
+            <td>
+                <a class="btn btn-2 btn-outline-dark mt-auto" href="{% url 'delete_from_cart' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}">Видалити товар</a>
+            </td>
+            </tr>
+        </tbody>
+
+        {% endfor %}
+        <tr>
+            <td colspan="2"></td>
+            <td>Разом:</td>
+            <td>{{ cart.total_products }}</td>
+            <td><strong>{{ cart.final_price }} грн</strong></td>
+            <td>
+                <a href="{% url 'checkout' %}" class="nav_a nav_a_one">Оформити замовлення →</a>
+            </td>
+        </tr>
+    </table>
+</section>
+{% endblock body %}

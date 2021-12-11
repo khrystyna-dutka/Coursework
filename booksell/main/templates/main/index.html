@@ -1,0 +1,22 @@
+{% extends 'main/layout_1.html' %}
+{% load static %}
+{% block body %}
+<section>
+    <div class="home_page">
+        <div class="foto-col">
+            <img src="{% static 'main/img/home-1.jpg' %}" alt="фото" class="home_img">
+            <div class="circle">
+                <p class="home_p1">“Можна лежати на мосту і дивитися, як тече вода. Або бігати, або бродити по болоту в червоних чобітках, або ж згорнутися клубочком і слухати, як дощ стукає по даху. Бути щасливою дуже легко.”</p>
+                <p class="home_p2">-Туве Янссон</p>
+            </div>
+        </div>
+        <div class="home_text">
+            <h1 class="home_h1">Читати - завжди ok!</h1>
+            <p class="home_p">Обери книжку за своїм бажанням та гаманцем. Купуй,<br>продавай або ж обмінюйся книжками саме тут! Вигідні<br>пропозиції, рідкісні екземпляри та нові знайомства<br>чекають на тебе</p>
+            <a href="{% url 'catalog' %}" class="home_button">Почати →</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+

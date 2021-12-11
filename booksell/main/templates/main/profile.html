@@ -1,0 +1,41 @@
+{% extends 'main/layout.html' %}
+{% block right %}<a href="" class="nav-bot_a1">Додати свій товар ✚</a>{% endblock %}
+{% block body %}
+<section>
+    <div class="sec-z">
+        <h3 class="mt-3 mb-3 prof_order_h3">Замовлення користувача {{ request.user.username }}</h3>
+        {% if not orders.count %}
+            <div class="col-md-12 prof_orders">
+                <p class="prof_order_p">У Вас ще нема замовлень 😞.<br>Почніть робити покупки просто <a class="nav-bot_a1" href="{% url 'catalog' %}"><b>ЗАРАЗ!</b></a></p>
+            </div>
+        {% else %}
+            <div class="col-md-12 prof_order_table">
+                <table class="table">
+                    <thead>
+                        <th scope="col">Номер</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col">Сума</th>
+                        <th scope="col">Товар</th>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            <tr>
+                                <th scope="row">{{ order.id }}</th>
+                                <td>{{ order.get_status_display }}</td>
+                                <td>{{ order.cart.final_price }} грн</td>
+                                <td>
+                                    <ul>
+                                        {% for item in order.cart.products.all %}
+                                            <li>{{ item.content_object.title }} x {{ item.qty }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'main/layout.html' %}
+{% block right %}
+{% if request.user.is_authenticated %}
+    <a href="/admin/main/" class="nav-bot_a1">Додати свій товар ✚</a>
+{% elif not request.user.is_authenticated %}
+    <a href="{% url 'login' %}" class="nav-bot_a1">Увійти</a>
+{% endif %}
+{% endblock %}
+{% block body %}
+<section>
+    <div class="filter">
+        <a href="{% url 'catalog' %}" class="filter_a">Література: </a>
+        {% for category in categories %}
+            <a href="{{ category.url }}" class="filter_a">{{ category.name }} ({{ category.count }})</a>
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for product in products %}
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <a href="{{ product.get_absolute_url }}"><img class="card-img-top img-card" src="{{ product.image.url }}" alt="..." /></a>
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <h5 class="fw-bolder"><a class="product_name_a" href="{{ product.get_absolute_url }}">{{ product.title }}</a></h5>
+                                {{ product.price }} грн
+                            </div>
+                        </div>
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            {% if request.user.is_authenticated %}
+                                <div class="text-center"><a class="btn btn-2 btn-outline-dark mt-auto" href="{% url 'add_to_cart' ct_model=product.get_model_name slug=product.slug %}">У корзину</a></div>
+                            {% elif not request.user.is_authenticated %}
+                                <button type="button" class="mt-auto btn-buy" data-toggle="modal" data-target="#myModal-2">
+                                    У корзину
+                                </button>
+                                <div class="modal fade" id="myModal-2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="myModalLabel">Неавторизований користувач!</h5>
+                                                <button type="button" class="close btn_close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h5>1. Вхід в особистий акаунт</h5>
+                                                <p>Перед тим як розпочати покупки, потрібно авторизуватися. Для цього на сторінці <a href="{% url 'catalog' %}" class="nav-bot_a1">Каталог</a> натистіть <a href="{% url 'login' %}" class="nav-bot_a1">Увійти</a>. Після успішного введення логіна та пароля, можете додавати товар у корзину.</p>
+                                                <br>
+                                                <h5>2. Реєстрація</h5>
+                                                <p>Якщо акаунт користувача у Вас не створений, натисніть <a href="{% url 'registration' %}" class="nav-bot_a2">Зареєструватися</a> на сторінці авторизації. Уведіть свої дані (важливо запам'ятати <b>логін</b> та <b>пароль</b> для подальшої авторизації на сайті) та натисніть кнопку для завершення реєстрації.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock body %}

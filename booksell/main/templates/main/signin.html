@@ -1,0 +1,26 @@
+{% extends 'main/layout_1.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block left %}<a href="{% url 'registration' %}" class="nav-bot_a2">Зареєструватися</a>{% endblock %}
+{% block right %}<p></p>{% endblock %}
+{% block body %}
+<style>
+input{
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+</style>
+<section>
+    <div class="sign_page">
+        <h2 class="sign_h2">Вхід</h2>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <p class="login">Логін:</p>
+            {{ form.username }}
+            <p class="login-1">Пароль:</p>
+            {{ form.password }}
+            <input type="submit" class="button_login" value="Увійти →">
+        </form>
+    </div>
+</section>
+{% endblock %}

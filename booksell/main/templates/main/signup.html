@@ -1,0 +1,45 @@
+{% extends 'main/layout_1.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block right %}<a href="{% url 'login' %}" class="nav-bot_a1">Увійти</a>{% endblock %}
+{% block body %}
+<style>
+input{
+    margin-top: 0px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+</style>
+<section>
+    <div class="sign_page">
+        <h2 class="sign_h2">Реєстрація</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="sign">
+                <div class="sign_l">
+                    <p class="login">Прізвище:</p>
+                    {{ form.last_name }}
+                    <p class="login">Ім'я:</p>
+                    {{ form.first_name }}
+                    <p class="login">Номер телефону:</p>
+                    {{ form.phone }}
+                    <p class="login">Електронна адреса:</p>
+                    {{ form.email }}
+                </div>
+                <div class="sign_r">
+                    <p class="login">Домашня адреса:</p>
+                    {{ form.address }}
+                    <p class="login">Логін:</p>
+                    {{ form.username }}
+                    <p class="login">Пароль:</p>
+                    {{ form.password }}
+                    <p class="login">Підтвердіть пароль:</p>
+                    {{ form.confirm_password }}
+                </div>
+            </div>
+            <input type="submit" class="button_registration" value="Зареєструватися →">
+        </form>
+    </div>
+</section>
+{% endblock %}

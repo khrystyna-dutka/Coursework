@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;700&family=Niconne&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'main/css/main.css'%}">
+    <title>BookSell</title>
+</head>
+<body>
+    <section>
+        <div class="nav">
+            <a href="{% url 'home' %}" class="nav_a nav_a_one">Головна</a>
+            <a href="{% url 'catalog' %}" class="nav_a nav_a_two">Каталог</a>
+            <h2 class="nav_h2">BookSell</h2>
+            <a href="{% url 'news' %}" class="nav_a nav_a_three">Новини</a>
+            <button class="help_a nav_a nav_a_four" data-toggle="modal" data-target="#myModal-3">
+                  Допомога
+                </button>
+                <div class="modal fade" id="myModal-3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-1" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel-1">Допомога</h5>
+                        <button type="button" class="close btn_close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                          <h5>1. Навігація сайту</h5>
+                          <p>
+                              <a href="{% url 'home' %}" class="nav-bot_a1">Головна</a> - початкова сторінка <br>
+                              <a href="{% url 'catalog' %}" class="nav-bot_a1">Каталог</a> - каталог товарів магазину<br>
+                              <a href="{% url 'news' %}" class="nav-bot_a1">Новини</a> - цікаві статті та актуальні новини магазину
+                              <a class="nav-bot_a1">Допомога</a> - інструкція користувача<br>
+                              <a href="/admin/main/" class="nav-bot_a1">Додати свій товар ✚</a> - кнопка для додавання власних товарів<br>
+                              <a href="#btn_sell" class="nav-bot_a1">Стати продацем</a> - кнопка для подпння заявки на продавця<br>
+                          </p>
+                          <br>
+                          <h5>2. Вхід в особистий акаунт</h5>
+                          <p>Перед тим як розпочати покупки, потрібно авторизуватися. Для цього на сторінці <a href="{% url 'catalog' %}" class="nav-bot_a1">Каталог</a> натистіть <a href="{% url 'login' %}" class="nav-bot_a1">Увійти</a>. Після успішного введення логіна та пароля, можете додавати товар у корзину.</p>
+                          <br>
+                          <h5>3. Реєстрація</h5>
+                          <p>Якщо акаунт користувача у Вас не створений, натисніть <a href="{% url 'registration' %}" class="nav-bot_a2">Зареєструватися</a> на сторінці авторизації. Уведіть свої дані (важливо запам'ятати <b>логін</b> та <b>пароль</b> для подальшої авторизації на сайті) та натисніть кнопку для завершення реєстрації.</p>
+                          <br>
+                          <h5>4. Вихід</h5>
+                          <p>Для виходу з акаунту користувача достатньо натиснути на відповідну кнопку біля Вашого usernsme - <img class="out" src="{% static 'main/img/img-2.png' %}" alt="..."></p>
+                          <br>
+                          <h5>5. Процес замовлення</h5>
+                          <p>Для здійснення покупки потрібно перейти до розділу <a href="{% url 'catalog' %}" class="nav-bot_a1">Каталог</a> та натиснути "У корзину" під книжкою, яка Вам сподобалася. Після цього Ви потрапите до кошика. Можете продовжити покупки, натиснувши <a href="{% url 'catalog' %}" class="nav-bot_a1">Каталог</a> або оформити замовлення, натиснувши одноіменний пункт під списком товарів. Після заповнення особистих даних отримувача та деталей замовлення, надсилайте його на опрацювання. Стежити за статусом свого замовлення можна в особистому кабінеті користувача(потрібно просто натиснути на свій username у верхній частині екрану). Менеджери зателефонують Вам найближчим часом.</p>
+                          <br>
+                          <h5>6. Хараетеристика товарів</h5>
+                          <p>Для перегляду детальної інформації про товар достатньо написнути на зображення або назву товару.</p>
+                          <br>
+                          <h5>7. Категорії товарів</h5>
+                          <p>Для полегшення вибору книжок використовуйте категорії на сторінці <a href="{% url 'catalog' %}" class="nav-bot_a1">Каталог</a>. Натисніть на потрібну Вам літературу та почніть обирати книжки.</p>
+                          <br>
+                          <h5>8. Як стати продавцем</h5>
+                          <p>Для того, щоб публікувати товари на сайті, потрібно мати права продавця. Натисніть на кнопку "Стати продавцем"(доступно лише авторизованим користувачам) у нижній частині будь-якої сторінки та дотримуйтеся інструкцій.</p>
+                          <br>
+                          <h5>9. Як додавати товар</h5>
+                          <p>Після отримання прав продавця натисніть кнопку "Додати свій товар"(доступно лише авторизованим користувачам). На панелі адміністратора оберіть категорію вашої книги та заповніть всю потрібну інформацію. Збережіть новий товар.</p>
+                          <br>
+                          <h5>10. Як видалити або редагувати свій товар</h5>
+                          <p>На панелі адміністратора(як туди потрапити осписано у пункті 9) оберіть категорію вашого товару та знайдіть його у списку. Після цього натисніть два рази на нього, відредагуйте потрібну інформцію та збережіть зміни. Для того, щоб видалити товар поставте "пташку" та оберіть відповідну дію у верхній частині екрану.</p>
+                          <br>
+                          <h5>11. Як редагувати замовдення</h5>
+                          <p>На панелі адміністратора оберіть "Order"  та перейдіть до замовлення Вашого товару. Змінюйте статус покупки відповідно до реалізації замовлення за допомогою поля "Статус замовлення".</p>
+                          <br>
+                          <p>За додатковими питаннями звертайтеся на пошту <a class="nav-bot_a1" href="mailto:Khrystyna.Dutka.KNM.2020@lpnu.ua?">Khrystyna.Dutka.KNM.2020@lpnu.ua</a> або за номером телефону +380985648753</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        </div>
+    </section>
+    <div class="nav-bot">
+        <div class="sec">
+            {% block right %}{% endblock %}
+            {% block left %}{% endblock %}
+            {% block register %}{% endblock %}
+        </div>
+    </div>
+
+{% block body %}
+{% endblock%}
+<div class="footer-my">
+    <section>
+    {% if request.user.is_authenticated %}
+        <div class="foot">
+            <div class="c-h3">
+                <h3 class="footer_h3">BookSell</h3>
+            </div>
+            <button id="btn_sell" type="button" class="footer_button" data-toggle="modal" data-target="#myModal-2">
+            Стати продавцем
+            </button>
+            <div class="modal fade" id="myModal-2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Хочете стати продавцем?</h5>
+                        <button type="button" class="close btn_close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                          <p>1. Натисніть кнопку "Подати заявку" внизу спливваючого вікна.</p>
+                          <p>2. Оберіть зручний для Вас спосіб надсилання листа або самостійно надішліть його на пошту
+                              <a class="nav-bot_a1" href="mailto:Khrystyna.Dutka.KNM.2020@lpnu.ua?">Khrystyna.Dutka.KNM.2020@lpnu.ua</a></p>
+                          <p>3. У темі листа вкажіть "Заявка на продавця", а в тексті - "Прийміть заявку для публікування товарів" та вкажіть свій <b>Логін(!)</b></p>
+                          <p>4. Надішліть листа та очікуйте підтвердження</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="modal_button"><a class="nav-bot_a1" href="mailto:hrystyadutka@gmail.com?subject=Заявка на продавця&body=Прийміть заявку для публікування своїх товарів.%0AЛогін: ">Подати заявку</a></button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="c">
+                <p class="footer_p">☏ +380681234567</p>
+            </div>
+            <div class="c">
+                <p class="footer_p">✉ myemail.gmail.com</p>
+            </div>
+            <div class="c">
+                <p class="footer_p">2021 © Усі права захищено</p>
+            </div>
+            {% elif not request.user.is_authenticated %}
+            <div class="foot">
+                <div class="footer_div_h3">
+                    <h3 class="footer_h3">BookSell</h3>
+                </div>
+                <a href="{% url 'catalog' %}" class="footer_button_two">Перейти до каталогу</a>
+                <div class="footer_div_p">
+                    <p class="footer_p">☏ +380681234567</p>
+                </div>
+                <div class="footer_div_p">
+                    <p class="footer_p">✉ myemail.gmail.com</p>
+                </div>
+                <div class="footer_div_p">
+                        <p class="footer_p">2021 © Усі права захищено</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    </section>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
